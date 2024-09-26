@@ -3,14 +3,20 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import home_image from '../assets/homeimage.jpg'
 import ProjectCard from "../components/ProjectCard";
+import { getHomeProject } from "../services/allApi";
 
 function Home() {
   const [isLogin, setIsLogin] = useState(false);
+  const getHomeProjectItems = async () => {
+    const result = await getHomeProject();
+    console.log(result);
+  }
   useEffect(
     () => {
       if (sessionStorage.getItem("token")) {
         setIsLogin(true)
       }
+      getHomeProjectItems();
   },[])
   return <>
     <div className="container-fluid bg-success p-4 mb-4" style={{ width: '100%', height: '75vh' }}>

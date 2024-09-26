@@ -66,7 +66,8 @@ function AddProject() {
 
         }
         )
-        handleClose()
+        setPreview("");
+        handleClose();
       }
       else if (result.status === 409) {
         toast.success(`${title} already exist`);
@@ -77,6 +78,19 @@ function AddProject() {
 
       }
     }
+  }
+  const handleClose1 = () => {
+    handleClose();
+    setPreview("");
+    setProjectDetails({
+      title: '',
+      language: '',
+      github: '',
+      website: '',
+      overview: '',
+      projectImage: '',
+
+    })
   }
 
   return (
@@ -122,7 +136,7 @@ function AddProject() {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleClose1}>
             Cancel
           </Button>
           <Button variant="success" onClick={handleAddProject}>
