@@ -20,12 +20,12 @@ export const addProjectApi = async (projectDetails,reqHeader) => {
 }
 
 //
-export const getHomeProject = async () => {
+export const getHomeProjectApi = async () => {
     return await commonApi('Get',`${BASE_URL}/project/homeproject`,"","")
 }
-export const getAllProject = async (reqHeader) => {
+export const getAllProjectApi = async (reqHeader) => {
     return await commonApi('Get',`${BASE_URL}/project/allproject`,"",reqHeader)
 }
-export const getUserProject = async (reqHeader) => {
+export const getUserProjectApi = async (reqHeader) => {
     return await commonApi('Get',`${BASE_URL}/project/userproject`,"",reqHeader)
 }

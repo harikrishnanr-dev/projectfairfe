@@ -3,13 +3,16 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import home_image from '../assets/homeimage.jpg'
 import ProjectCard from "../components/ProjectCard";
-import { getHomeProject } from "../services/allApi";
+import { getHomeProjectApi } from "../services/allApi";
+
 
 function Home() {
   const [isLogin, setIsLogin] = useState(false);
+  const [homeProject, setHomeProject] =useState([])
   const getHomeProjectItems = async () => {
-    const result = await getHomeProject();
+    const result = await getHomeProjectApi();
     console.log(result);
+    setHomeProject(result.data);
   }
   useEffect(
     () => {
@@ -44,19 +47,21 @@ function Home() {
     <div className="container-fluid mb-5">
       <h2 className="text-center my-5">Explore Our Projects</h2>
       <marquee scrollamount={20}>
-      <div className="row">
-        <div className="col-md-4 justify-content-center d-flex p-4" style={{ width: '400px' }}>
-          <ProjectCard/>
-        </div>
-        <div className="col-md-4 justify-content-center d-flex p-4" style={{ width: '400px' }}>
-          <ProjectCard/>
-        </div>
-        <div className="col-md-4 justify-content-center d-flex p-4" style={{ width: '400px' }}>
-          <ProjectCard/>
-        </div>
+        <div className="row">
+          {
+            homeProject?.length > 0 ?
+              homeProject.map((item) => (
+                <div className="col-md-4 justify-content-center d-flex p-4" style={{ width: '400px' }}>
+                  <ProjectCard project={item} />
+              </div>
+              )) :
+              <p>No Projects</p>
+          }
+       
+        
       </div>
       </marquee>
-      <Link to={'/projects'} style={{textDecoration:'none'}}>
+      <Link to={'/project'} style={{textDecoration:'none'}}>
       <h5 className="text-primary text-center">See More Projects</h5></Link>
     </div>
   </>;
