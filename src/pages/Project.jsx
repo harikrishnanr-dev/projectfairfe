@@ -59,7 +59,7 @@ function Project() {
                             {
                                 allProject.length > 0 ?
                                     allProject.map((item) => (
-                                        <div className='col-md-3'>
+                                        <div className='col-md-3 mt-5'>
                                             <ProjectCard project={item} />
                                         </div>
                                     )) :
