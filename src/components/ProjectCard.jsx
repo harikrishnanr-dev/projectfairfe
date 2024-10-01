@@ -21,7 +21,7 @@ function ProjectCard({project}) {
     const handleShow = () => setShow(true);
     return <>
       
-      <Card style={{ width: '100%' }} onClick={handleShow}>
+      <Card style={{ width: '100%' }} onClick={handleShow} >
       <Card.Img variant="top" src={`${BASE_URL}/uploads/${project.projectImage}`} height='200px' />
       <Card.Body>
         <Card.Title>{project.title}</Card.Title>

@@ -4,7 +4,6 @@ import Profile from "../components/Profile";
 
 function Dashboard() {
     const userData = JSON.parse(sessionStorage.getItem("loggedUser"));
-    console.log(userData);
     return <>
         <div className="container-fluid">
             <h4 className="ms-4 my-4 text-warning">

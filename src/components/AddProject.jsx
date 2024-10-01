@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { addProjectApi } from '../services/allApi';
 import { toast } from 'react-toastify';
+import { addProjectResponseContext } from '../context/ContextShare';
 
 function AddProject() {
   const [show, setShow] = useState(false);
   const [token, setToken] = useState("");
+  const { addProjectResponse, setAddProjectResponse } = useContext(addProjectResponseContext);
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
       setToken(sessionStorage.getItem("token"))
@@ -55,6 +57,7 @@ function AddProject() {
       }
       const result = await addProjectApi(reqBody, reqHeader);
       if (result.status === 200) {
+        setAddProjectResponse(result.data)
         toast.success(`${title} Uploaded Successfully`);
         setProjectDetails({
           title: '',
