@@ -1,17 +1,19 @@
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BASE_URL } from "../services/baseurl";
 import { toast } from "react-toastify";
 import { editUserProjectApi } from "../services/allApi";
+import { editProjectResponseContext } from "../context/ContextShare";
 
 function EditProject({ project }) {
 
   const [show, setShow] = useState(false);
   const [preview, setPreview] = useState("");
+  const { editProjectResponse, setEditProjectResponse } = useContext(editProjectResponseContext)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [projectDetails, setProjectDetails] = useState({
@@ -53,6 +55,11 @@ function EditProject({ project }) {
           const result = await editUserProjectApi(id, reqBody, reqHeader);
           console.log("/ update project result /");
           console.log(result);
+          if (result.status === 200)
+          {
+            handleClose();
+            setEditProjectResponse(result)
+          }
         }
         else {
           const reqHeader = {
@@ -63,6 +70,11 @@ function EditProject({ project }) {
           const result = await editUserProjectApi(id, reqBody, reqHeader);
           console.log("/ update project result /");
           console.log(result);
+          if (result.status === 200)
+            {
+            handleClose();
+            setEditProjectResponse(result)
+            }
         }
       } 
 }
@@ -72,6 +84,20 @@ useEffect(() => {
     setPreview(URL.createObjectURL(projectDetails.projectImage))
   }
 }, [projectDetails.projectImage])
+  
+  const handleClose1 = () => {
+    handleClose();
+    setProjectDetails({
+      id: project._id,
+    title: project.title,
+    language: project.language,
+    github: project.github,
+    website: project.website,
+    overview: project.overview,
+    projectImage: "",
+    })
+    setPreview("") // for image
+  }
 return <>
   <FontAwesomeIcon icon={faPen} onClick={handleShow} />
   <Modal show={show} onHide={handleClose} size={"lg"}>
@@ -107,7 +133,7 @@ return <>
       </div>
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="primary" onClick={handleClose}>
+      <Button variant="primary" onClick={handleClose1}>
         Cancel
       </Button>
       <Button variant="success" onClick={handleUpdate}>

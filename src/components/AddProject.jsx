@@ -73,11 +73,11 @@ function AddProject() {
         handleClose();
       }
       else if (result.status === 409) {
-        toast.success(`${title} already exist`);
+        toast.info(`${title} already exist`);
 
       }
       else {
-        toast.success(`${title} Upload failed`);
+        toast.danger(`${title} Upload failed`);
 
       }
     }
